@@ -1,0 +1,55 @@
+# Step 1
+# CircleCI uses a YAML file to identify how you want your testing environment setup and what tests you want to run. On CircleCI 2.0, this file must be called config.yml and must be in a hidden folder called .circleci (on Mac, Linux, and Windows systems, files and folders whose names start with a period are treated as system files that are hidden from users by default).
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - checkout
+      - run: echo "A first hello"
+
+
+# Step 2
+# Using Workflows
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - checkout
+      - run: echo "A first hello"
+  build:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - checkout
+      - run: echo "A first hello"
+
+# Step 2a
+
+version: 2
+jobs:
+  one:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - checkout
+      - run: echo "A first hello"
+      - run: sleep 25
+  two:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - checkout
+      - run: echo "A more familiar hi"
+      - run: sleep 15
+workflows:
+  version: 2
+  one_and_two:
+    jobs:
+      - one
+      - two 
